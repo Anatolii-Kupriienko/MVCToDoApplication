@@ -5,6 +5,7 @@ namespace ToDoList.Models
     public class EventModel
     {
         public int id { set; get; }
+
         [Required]
         [MinLength(2, ErrorMessage ="Event name must be longer")]
         [Display(Name = "Title")]
