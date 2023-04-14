@@ -9,9 +9,12 @@ namespace ToDoList.DataAccess.SQLDataAccess
 {
     public static class SQLDataAccess
     {
+        static WebApplicationBuilder builder = WebApplication.CreateBuilder();
+
         public static string GetConnectionString(string connectionName = "MVCToDoList")
         {
-            return ConfigurationManager.ConnectionStrings[connectionName].ConnectionString;
+            
+            return builder.Configuration.GetConnectionString("MVCToDoList");
         }
         public static List<T> LoadData<T>(string sql)
         {
