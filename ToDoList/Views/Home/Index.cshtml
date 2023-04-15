@@ -49,7 +49,7 @@
                 @Html.DisplayFor(modelItem => item.IsCompleted)
             </td>
             <td>
-                @Html.ActionLink("Delete", "Delete", "Home")
+                <a asp-action="DeleteEvent" asp-controller="Home" asp-route-id="@item.id">Delete</a>
             </td>
         </tr>
 }

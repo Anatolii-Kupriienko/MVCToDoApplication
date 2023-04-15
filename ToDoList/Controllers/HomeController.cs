@@ -23,6 +23,7 @@ namespace ToDoList.Controllers
             {
                 events.Add(new EventModel
                 {
+                    id = row.id,
                     Name = row.name,
                     DateCreated = row.date_created,
                     DueDate = row.due_date,
@@ -49,8 +50,18 @@ namespace ToDoList.Controllers
         }
         public IActionResult DeleteEvent(EventModel model)
         {
+            var data = EventProcessor.LoadEvent(model.id);
+            model.Name = data[0].name;
+            model.DateCreated = data[0].date_created;
+            model.DueDate = data[0].due_date;
+            model.CategoryId = data[0].category_id;
+            model.IsCompleted = data[0].is_completed;
+            return View(model);
+        }
+        public IActionResult Delete(EventModel model)
+        {
             EventProcessor.DeleteEvent(model.id);
-            return View();
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

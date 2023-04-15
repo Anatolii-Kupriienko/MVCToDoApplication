@@ -20,9 +20,17 @@ namespace ToDoList.DataAccess.EventProcessor
         }
         public static List<DBHelperEventModel> LoadEvents()
         {
-            string sql = @"SELECT event.name, event.date_created, event.due_date, dbo.event.is_completed 
-                           FROM dbo.event;";
+            string sql = @"SELECT * FROM dbo.event;";
             return SQLDataAccess.SQLDataAccess.LoadData<DBHelperEventModel>(sql);
+        }
+        public static List<DBHelperEventModel> LoadEvent(int ID)
+        {
+            DBHelperEventModel data = new DBHelperEventModel
+            {
+                id = ID,
+            };
+            string sql = "SELECT * FROM dbo.event WHERE id=@ID";
+            return SQLDataAccess.SQLDataAccess.LoadData<DBHelperEventModel>(sql, data);
         }
         public static int DeleteEvent(int Id)
         {
@@ -30,7 +38,7 @@ namespace ToDoList.DataAccess.EventProcessor
             {
                 id = Id
             };
-            string sql = @"DELETE FROM dbo.event WHERE id=@id;";
+            string sql = "DELETE FROM dbo.event WHERE id=@Id;";
             return DeleteData(sql, data);
         }
     }
