@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ToDoList.Models.CategoryModel>
+
+@{
+    ViewData["Title"] = "CategoryList";
+}
+
+<h1>CategoryList</h1>
+
+<p>
+    <a asp-action="CreateCategory">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "DeleteCategory", "Home")
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

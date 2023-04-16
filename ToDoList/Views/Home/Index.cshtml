@@ -9,6 +9,9 @@
 <p>
     <a asp-action="AddNewEvent">Add new Item</a>
 </p>
+<p>
+    <a asp-action="CreateCategory">Add new Category</a>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -22,7 +25,7 @@
                 @Html.DisplayNameFor(model => model.DueDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CategoryId)
+                Category
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.IsCompleted)
@@ -40,10 +43,13 @@
                 @Html.DisplayFor(modelItem => item.DateCreated)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DueDate)
+                @if(item.DueDate!=DateTime.MinValue)
+                {
+                        @Html.DisplayFor(modelItem => item.DueDate)
+                }else {<span>None</span>}
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CategoryId)
+                @Html.DisplayFor(modelItem => item.SelectedCategory.name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsCompleted)

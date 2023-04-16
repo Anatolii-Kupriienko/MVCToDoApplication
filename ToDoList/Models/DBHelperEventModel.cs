@@ -10,6 +10,8 @@ namespace ToDoList.Models
         public DateTime date_created { set; get; }
         public DateTime due_date { set; get; }
         public int category_id { set; get; }
+        public string category { set; get; }
         public bool is_completed { set; get; }
+       
     }
 }

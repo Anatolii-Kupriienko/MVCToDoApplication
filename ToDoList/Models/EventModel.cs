@@ -12,11 +12,14 @@ namespace ToDoList.Models
         public string Name { set; get; }
         [Display(Name = "Date Created")]
         public DateTime DateCreated { set; get; }
-        [Display(Name="Due Date(Optional)")]
+        [Display(Name="Due Date")]
         public DateTime DueDate { set; get; }
-        [Display(Name = "Category")]
-        public int CategoryId { set; get; }
+        public CategoryModel Category { set; get; }
         [Display(Name ="Completion Status")]
         public bool IsCompleted { set; get; }
+        [Display(Name="Category")]
+        public List<CategoryModel> categories { set; get; }
+        [Display(Name="Category")]
+        public CategoryModel SelectedCategory { set; get; }
     }
 }
