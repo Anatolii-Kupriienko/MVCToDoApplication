@@ -42,7 +42,7 @@ namespace ToDoList.DataAccess.EventProcessor
             {
                 id = Id
             };
-            string sql = "DELTE FROM dbo.category WHERE id=@id;";
+            string sql = "DELETE FROM dbo.category WHERE id=@id;";
             return SQLDataAccess.SQLDataAccess.DeleteData(sql, data);
         }
         public static List<CategoryModel> LoadCategory(int ID)
@@ -51,7 +51,7 @@ namespace ToDoList.DataAccess.EventProcessor
             {
                 id = ID,
             };
-            string sql = "SELECT * FROM dbo.category WHERE id=@ID";
+            string sql = "SELECT * FROM dbo.category WHERE id=@id;";
             return SQLDataAccess.SQLDataAccess.LoadData<CategoryModel>(sql, data);
         }
         public static List<DBHelperEventModel> LoadEvents()
