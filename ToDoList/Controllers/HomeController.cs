@@ -92,6 +92,11 @@ namespace ToDoList.Controllers
             EventProcessor.DeleteEvent(model.id);
             return RedirectToAction("Index");
         }
+        public IActionResult ChangeCompleteStatus(int id)
+        {
+            EventProcessor.ChangeCompletenes(id);
+            return RedirectToAction("Index");
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -82,5 +82,17 @@ namespace ToDoList.DataAccess.EventProcessor
             string sql = "DELETE FROM dbo.event WHERE id=@Id;";
             return DeleteData(sql, data);
         }
+        public static int ChangeCompletenes(int id)
+        {
+            string sql;
+            var data = LoadEvent(id);
+            data[0].id = id;
+            if (data[0].is_completed == false)
+            {
+                sql = "UPDATE dbo.event SET is_completed=1 WHERE id = @id;";
+            }
+            else sql = "UPDATE dbo.event SET is_completed=0 WHERE id = @id;";
+            return SQLDataAccess.SQLDataAccess.SaveData(sql, data);
+        }
     }
 }

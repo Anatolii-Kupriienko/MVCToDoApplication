@@ -52,7 +52,7 @@
                 @Html.DisplayFor(modelItem => item.SelectedCategory.name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IsCompleted)
+                    <input type="checkbox" checked="@item.IsCompleted" onchange="location.href='Home/ChangeCompleteStatus/@item.id'">
             </td>
             <td>
                 <a asp-action="DeleteEvent" asp-controller="Home" asp-route-id="@item.id">Delete</a>
