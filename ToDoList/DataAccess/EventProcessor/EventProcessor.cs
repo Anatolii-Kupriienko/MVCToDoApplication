@@ -56,7 +56,7 @@ namespace ToDoList.DataAccess.EventProcessor
         }
         public static List<DBHelperEventModel> LoadEvents()
         {
-            string sql = @"SELECT dbo.event.id, dbo.event.name, dbo.event.date_created, dbo.event.due_date, dbo.category.name AS category, dbo.event.is_completed FROM dbo.event INNER JOIN dbo.category ON dbo.event.category_id=dbo.category.id;";
+            string sql = @"SELECT dbo.event.id, dbo.event.name, dbo.event.date_created, dbo.event.due_date, dbo.category.name AS category, dbo.event.is_completed FROM dbo.event INNER JOIN dbo.category ON dbo.event.category_id=dbo.category.id ORDER BY event.is_completed ASC, event.due_date ASC;";
             return SQLDataAccess.SQLDataAccess.LoadData<DBHelperEventModel>(sql);
         }
         public static List<CategoryModel> LoadCategories()
