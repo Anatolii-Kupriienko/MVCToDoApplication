@@ -3,21 +3,17 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="AddNewEvent">Add new Item</a>
-</p>
-<p>
-    <a asp-action="CategoryList">All Categories</a>
-</p>
-<p>
-    <a asp-action="CreateCategory">Add new Category</a>
-</p>
-<table class="table">
+<div class="container d-flex justify-content-between mt-4 mb-2">
+<span>
+        <a class="p-1 h5 text-light border-light bg-info border rounded" asp-action="AddNewEvent">Add new Item</a>
+</span>
+<span>
+        <a class="text-light p-1 border-light bg-info border rounded" asp-action="CategoryList">All Categories</a>
+</span>
+</div>
+<table class="table bg-secondary border border-tertiary border-1 text-center">
     <thead>
-        <tr>
+        <tr class="align-bottom">
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -38,7 +34,9 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+    @if(item.IsCompleted==true)
+            {
+                <tr class="align-middle bg-success text-white h6 border rounded border-white border-1">
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
@@ -58,9 +56,34 @@
                     <input type="checkbox" checked="@item.IsCompleted" onchange="location.href='Home/ChangeCompleteStatus/@item.id'">
             </td>
             <td>
-                <a asp-action="DeleteEvent" asp-controller="Home" asp-route-id="@item.id">Delete</a>
+                <a class="text-danger" asp-action="DeleteEvent" asp-controller="Home" asp-route-id="@item.id">Delete</a>
             </td>
         </tr>
+            }else{
+            <tr class="align-middle h6 text-light">
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+            <td>
+                @if(item.DueDate!=DateTime.MinValue)
+                {
+                        @Html.DisplayFor(modelItem => item.DueDate)
+                }else {<span>None</span>}
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SelectedCategory.name)
+            </td>
+            <td>
+                    <input type="checkbox" checked="@item.IsCompleted" onchange="location.href='Home/ChangeCompleteStatus/@item.id'">
+            </td>
+            <td>
+                <a class="text-danger" asp-action="DeleteEvent" asp-controller="Home" asp-route-id="@item.id">Delete</a>
+            </td>
+        </tr>
+        }
 }
     </tbody>
 </table>

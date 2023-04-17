@@ -4,15 +4,15 @@
     ViewData["Title"] = "CategoryList";
 }
 
-<h1>CategoryList</h1>
+<h1 class="text-light">All Categories</h1>
 
 <p>
-    <a asp-action="CreateCategory">Create New</a>
+    <a class="text-light border border-light bg-info p-1 rounded" asp-action="CreateCategory">Create New</a>
 </p>
-<table class="table">
+<table class="table text-light">
     <thead>
         <tr>
-            <th>
+            <th class="text-center">
                 @Html.DisplayNameFor(model => model.name)
             </th>
             <th></th>
@@ -21,13 +21,16 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
+            <td class="text-center fs-4 fw-bolder">
                 @Html.DisplayFor(modelItem => item.name)
             </td>
-            <td>
-               <a asp-route-id="@item.id" asp-action="DeleteCategory">Delete</a>
+            <td class="text-end fs-5">
+               <a class="text-danger" asp-route-id="@item.id" asp-action="DeleteCategory">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+<div>
+    <a asp-action="Index" class="text-primary fs-5">Back to List of ToDo's</a>
+</div>
