@@ -3,6 +3,7 @@ using System.Diagnostics;
 using ToDoList.Models;
 using ToDoList.DataAccess.EventProcessor;
 using ToDoList.DataAccess.SQLDataAccess;
+using System.Xml;
 
 namespace ToDoList.Controllers
 {
@@ -14,10 +15,9 @@ namespace ToDoList.Controllers
         {
             _logger = logger;
         }
-
         public IActionResult Index()
         {
-            var data = EventProcessor.LoadEvents();
+            var data = EventProcessor.LoadEvents(EventModel.isXML);
             List<EventModel> events = new List<EventModel>();
             foreach (var row in data)
             {
@@ -29,14 +29,14 @@ namespace ToDoList.Controllers
                     DateCreated = row.date_created,
                     DueDate = row.due_date,
                     IsCompleted = row.is_completed,
-                    SelectedCategory = new CategoryModel { name=row.category}
+                    SelectedCategory = new CategoryModel { name=row.category }
                 });
             }
             return View(events);
         }
         public IActionResult CategoryList()
         {
-            var categories = EventProcessor.LoadCategories();
+            var categories = EventProcessor.LoadCategories(EventModel.isXML);
             return View(categories);
         }
         public IActionResult CreateCategory()
@@ -49,37 +49,37 @@ namespace ToDoList.Controllers
         {
             if (ModelState.IsValid)
             {
-                EventProcessor.AddNewCategory(model.name);
+                EventProcessor.AddNewCategory(model.name, EventModel.isXML);
             }
             return RedirectToAction("Index");
         }
         public IActionResult DeleteCategory(CategoryModel model)
         {
-            var data = EventProcessor.LoadCategory(model.id);
+            var data = EventProcessor.LoadCategory(model.id, EventModel.isXML);
             model.name = data[0].name;
             return View(model);
         }
         public IActionResult DeleteCategoryAction(CategoryModel model)
         {
-            EventProcessor.DeleteCategory(model.id);
+            EventProcessor.DeleteCategory(model.id, EventModel.isXML);
             return RedirectToAction("Index");
         }
         public IActionResult AddNewEvent()
         {
             var model = new EventModel();
-            model.categories = EventProcessor.LoadCategories();
+            model.categories = EventProcessor.LoadCategories(EventModel.isXML);
             return View(model);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult AddNewEvent(EventModel model)
         {
-                EventProcessor.AddNewEvent(model.Name, model.DueDate, model.SelectedCategory);
+                EventProcessor.AddNewEvent(model.Name, model.DueDate, model.SelectedCategory, EventModel.isXML);
                 return RedirectToAction("Index");
         }
         public IActionResult DeleteEvent(EventModel model)
         {
-            var data = EventProcessor.LoadEvent(model.id);
+            var data = EventProcessor.LoadEvent(model.id, EventModel.isXML);
             model.Name = data[0].name;
             model.DateCreated = data[0].date_created;
             model.DueDate = data[0].due_date;
@@ -89,12 +89,19 @@ namespace ToDoList.Controllers
         }
         public IActionResult Delete(EventModel model)
         {
-            EventProcessor.DeleteEvent(model.id);
+            EventProcessor.DeleteEvent(model.id, EventModel.isXML);
             return RedirectToAction("Index");
         }
         public IActionResult ChangeCompleteStatus(int id)
         {
-            EventProcessor.ChangeCompletenes(id);
+            EventProcessor.ChangeCompletenes(id, EventModel.isXML);
+            return RedirectToAction("Index");
+        }
+        public IActionResult SwitchStorageType(bool isXML)
+        {
+            if (isXML == true)
+                EventModel.isXML = true;
+            else EventModel.isXML = false;
             return RedirectToAction("Index");
         }
 

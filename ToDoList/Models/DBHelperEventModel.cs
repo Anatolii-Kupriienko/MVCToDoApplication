@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace ToDoList.Models
 {
+    [Serializable]
     public class DBHelperEventModel
     {
         public int id { set; get; }

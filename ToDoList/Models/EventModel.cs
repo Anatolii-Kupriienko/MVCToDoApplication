@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ToDoList.Controllers;
 
 namespace ToDoList.Models
 {
@@ -21,5 +22,10 @@ namespace ToDoList.Models
         public List<CategoryModel> categories { set; get; }
         [Display(Name="Category")]
         public CategoryModel SelectedCategory { set; get; }
+        public static bool isXML { set; get; }
+        public EventModel()
+        {
+            isXML = false;
+        }
     }
 }

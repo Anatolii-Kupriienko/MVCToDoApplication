@@ -13,9 +13,8 @@ namespace ToDoList.DataAccess.SQLDataAccess
     {
         static WebApplicationBuilder builder = WebApplication.CreateBuilder();
 
-        public static string GetConnectionString(string connectionName = "MVCToDoList")
+        public static string GetConnectionString()
         {
-            
             return builder.Configuration.GetConnectionString("MVCToDoList");
         }
         public static List<T> LoadData<T>(string sql)

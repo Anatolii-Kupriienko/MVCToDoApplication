@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<ToDoList.Models.EventModel>
-
 @{
     ViewData["Title"] = "Index";
 }
@@ -7,6 +6,30 @@
 <span>
         <a class="p-1 h5 text-light border-light bg-info border rounded" asp-action="AddNewEvent">Add new Item</a>
 </span>
+<div>
+        <form asp-action="SwitchStorageType">
+        <select asp-for="@EventModel.isXML">
+                @if (EventModel.isXML == true)
+                {
+                    <option value="true" selected>
+                        XML Storage
+                    </option>
+                }
+                else
+                {
+                    <option value="true">
+                        XML Storage
+                    </option>
+                }
+                <option value="false">
+            SQL Database
+        </option>
+    </select>
+    <div>
+    <button class="w-100 mt-2" type="submit">Switch</button>
+    </div>
+        </form>
+</div>
 <span>
         <a class="text-light p-1 border-light bg-info border rounded" asp-action="CategoryList">All Categories</a>
 </span>
@@ -56,7 +79,7 @@
                     <input type="checkbox" checked="@item.IsCompleted" onchange="location.href='Home/ChangeCompleteStatus/@item.id'">
             </td>
             <td>
-                <a class="text-danger" asp-action="DeleteEvent" asp-controller="Home" asp-route-id="@item.id">Delete</a>
+                <a class="text-danger" asp-action="DeleteEvent" asp-route-id="@item.id">Delete</a>
             </td>
         </tr>
             }else{
