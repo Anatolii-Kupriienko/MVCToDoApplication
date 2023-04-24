@@ -23,7 +23,7 @@ namespace ToDoList.Models
         [Display(Name="Category")]
         public CategoryModel SelectedCategory { set; get; }
         public static bool isXML { set; get; }
-        public EventModel()
+        static EventModel()
         {
             isXML = false;
         }
